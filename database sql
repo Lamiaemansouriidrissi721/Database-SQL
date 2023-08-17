@@ -1,0 +1,92 @@
+/* What does the app's SQL look like? */
+
+CREATE TABLE league_database (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_Tag TEXT,
+    Game_Rank TEXT,
+    performance INTEGER
+);
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('sweetshadow', 'Challenger', 90);
+-- Inserting more rows into the table
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('player1', 'Diamond', 75);
+
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('gamer123', 'Gold', 60);
+
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('proPlayer', 'Master', 85);
+
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('casualGamer', 'Silver', 40);
+
+/*see how my table actually looks like */
+
+SELECT *FROM league_database;
+
+/*lets assume first we have a new user added  but our table is already created */
+INSERT INTO league_database (user_Tag, Game_Rank, performance)
+VALUES ('AkiraBiers18', 'Silver', 50);
+
+ /*Now lets assume i wanted to also add the win rates of each user while my data is already created */
+
+-- Add the new columns--
+-- Add the new columns
+ALTER TABLE league_database
+ADD COLUMN wins INTEGER;
+
+ALTER TABLE league_database
+ADD COLUMN total_games INTEGER;
+
+ALTER TABLE league_database
+ADD COLUMN win_rate REAL;
+
+-- Assuming a FLOAT or REAL data type for the win rate
+
+-- Update the wins and total_games columns with sample data
+UPDATE league_database
+SET wins = 50, total_games = 100
+WHERE user_Tag = 'sweetshadow';
+
+UPDATE league_database
+SET wins = 30, total_games = 60
+WHERE user_Tag = 'player1';
+UPDATE league_database
+SET wins = 30, total_games = 500
+WHERE user_Tag = 'gamer123';
+UPDATE league_database
+SET wins = 30, total_games = 90
+WHERE user_Tag = 'AkiraBiers18';
+UPDATE league_database
+SET wins = 30, total_games = 200
+WHERE user_Tag = 'proPlayer';
+UPDATE league_database
+SET wins = 30, total_games = 70
+WHERE user_Tag = 'casualGamer';
+-- Calculate and update the win rates
+UPDATE league_database
+SET win_rate = (wins * 100.0 / total_games);
+/* now lets try to see how our legendary users do in game */
+SELECT user_Tag, win_rate
+FROM league_database
+GROUP BY user_Tag
+ORDER BY win_rate DESC;
+/* lets pretend that a user decided to terminate their  accout and one they do  their data go all */
+-- UNFORTUNATLY our leendary gamer gamer123 and proplayer decided to leave--
+-- Delete rows where user_Tag is 'gamer123' or 'proPlayer'
+
+-- Create a backup of the table structure and data
+-- Delete rows where user_Tag is 'gamer123' or 'proPlayer'
+DELETE FROM "league_database"
+WHERE user_Tag IN ('gamer123', 'proPlayer');
+
+-- Alter the table to remove columns for 'gamer123' and 'proPlayer'--
+
+-- Delete rows where user_Tag is 'gamer123' or 'proPlayer'
+DELETE FROM "league_database"
+WHERE user_Tag IN ('gamer123', 'proPlayer');
+
+--lets see if  they actually left --
+ SELECT*FROM league_database;
+ --They succesfully did--
