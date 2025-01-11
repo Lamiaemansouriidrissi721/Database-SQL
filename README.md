@@ -1,7 +1,3 @@
-ream me file for it please
-ChatGPT said:
-ChatGPT
-
 The provided SQL script outlines the creation and management of a database table named league_database, designed to store user performance metrics for a gaming application. Here's a breakdown of the script:
 
 1. Table Creation:
